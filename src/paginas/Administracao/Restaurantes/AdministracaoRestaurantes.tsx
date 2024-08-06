@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import IRestaurante from "../../../interfaces/IRestaurante";
 import {
+	Button,
 	Paper,
 	Table,
 	TableBody,
@@ -20,6 +21,19 @@ const AdministracaoRestaurantes = () => {
 			.then(resposta => setRestaurantes(resposta.data));
 	}, []);
 
+	const excluirRestaurante = (restauranteAExcluir: IRestaurante) => {
+		axios
+			.delete(
+				`http://localhost:8000/api/v2/restaurantes/${restauranteAExcluir.id}/`
+			)
+			.then(() => {
+				const listaRestaurante = restaurantes.filter(
+					restaurante => restaurante.id !== restauranteAExcluir.id
+				);
+				setRestaurantes([...listaRestaurante]);
+			});
+	};
+
 	return (
 		<TableContainer component={Paper}>
 			<Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -27,6 +41,7 @@ const AdministracaoRestaurantes = () => {
 					<TableRow>
 						<TableCell>Nome</TableCell>
 						<TableCell>Editar</TableCell>
+						<TableCell>Excluir</TableCell>
 					</TableRow>
 				</TableHead>
 				<TableBody>
@@ -37,6 +52,15 @@ const AdministracaoRestaurantes = () => {
 								[
 								<Link to={`/admin/restaurantes/${restaurante.id}`}>editar</Link>
 								]
+							</TableCell>
+							<TableCell>
+								<Button
+									variant="outlined"
+									color="error"
+									onClick={() => excluirRestaurante(restaurante)}
+								>
+									Excluir
+								</Button>
 							</TableCell>
 						</TableRow>
 					))}
