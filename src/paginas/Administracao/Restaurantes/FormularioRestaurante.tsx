@@ -1,4 +1,4 @@
-import { Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -42,18 +42,32 @@ const FormularioRestaurante = () => {
 	};
 
 	return (
-		<form onSubmit={aoSubmeterForm}>
-			<TextField
-				value={nomeRestaurante}
-				onChange={evento => setNomeRestaurante(evento.target.value)}
-				id="standard-basic"
-				label="Nome do Restaurante"
-				variant="standard"
-			/>
-			<Button type="submit" variant="outlined">
-				Salvar
-			</Button>
-		</form>
+		<Box
+			sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+		>
+			<Box component="form" onSubmit={aoSubmeterForm}>
+				<Typography component="h1" variant="h6">
+					Formulário de Restaurantes
+				</Typography>
+				<TextField
+					value={nomeRestaurante}
+					onChange={evento => setNomeRestaurante(evento.target.value)}
+					id="standard-basic"
+					label="Nome do Restaurante"
+					variant="standard"
+					fullWidth
+					required
+				/>
+				<Button
+					sx={{ marginTop: 1 }}
+					type="submit"
+					fullWidth
+					variant="outlined"
+				>
+					Salvar
+				</Button>
+			</Box>
+		</Box>
 	);
 };
 
