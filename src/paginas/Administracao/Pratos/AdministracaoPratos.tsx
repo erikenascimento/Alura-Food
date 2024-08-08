@@ -9,7 +9,7 @@ import {
 	TableHead,
 	TableRow,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 import axiosBaseURL from "../../../http";
 import IPrato from "../../../interfaces/IPrato";
 
@@ -32,6 +32,8 @@ const AdministracaoPratos = () => {
 				<TableHead>
 					<TableRow>
 						<TableCell>Nome</TableCell>
+						<TableCell>Tag</TableCell>
+						<TableCell>Imagem</TableCell>
 						<TableCell>Editar</TableCell>
 						<TableCell>Excluir</TableCell>
 					</TableRow>
@@ -40,8 +42,16 @@ const AdministracaoPratos = () => {
 					{pratos.map(prato => (
 						<TableRow key={prato.id}>
 							<TableCell>{prato.nome}</TableCell>
+							<TableCell>{prato.tag}</TableCell>
 							<TableCell>
-								[<Link to={`/admin/pratos/${prato.id}`}>editar</Link>]
+								<a href={prato.imagem} target="blank" rel="noreferrer">
+									Ver Imagem
+								</a>
+							</TableCell>
+							<TableCell>
+								[
+								<RouterLink to={`/admin/pratos/${prato.id}`}>editar</RouterLink>
+								]
 							</TableCell>
 							<TableCell>
 								<Button
