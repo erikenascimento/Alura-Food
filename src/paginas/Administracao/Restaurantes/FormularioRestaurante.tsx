@@ -50,68 +50,48 @@ const FormularioRestaurante = () => {
 	};
 
 	return (
-		<>
-			<AppBar position="static">
-				<Container maxWidth="xl">
-					<Toolbar>
-						<Typography variant="h6">Administração</Typography>
-						<Box sx={{ display: "flex", flexGrow: 1 }}>
-							<Link component={RouterLink} to="/admin/restaurantes">
-								<Button sx={{ my: 2, color: "white" }}>
-									Lista de Restaurantes
-								</Button>
-							</Link>
-							<Link component={RouterLink} to="/admin/restaurantes/novo">
-								<Button sx={{ my: 2, color: "white" }}>Novo Restaurante</Button>
-							</Link>
-						</Box>
-					</Toolbar>
-				</Container>
-			</AppBar>
-
-			<Box>
-				<Container maxWidth="lg" sx={{ mt: 1 }}>
-					<Paper sx={{ p: 2 }}>
-						{/* conteudo da página */}
+		<Box>
+			<Container maxWidth="lg" sx={{ mt: 1 }}>
+				<Paper sx={{ p: 2 }}>
+					{/* conteudo da página */}
+					<Box
+						sx={{
+							display: "flex",
+							flexDirection: "column",
+							alignItems: "center",
+							flexGrow: 1,
+						}}
+					>
 						<Box
-							sx={{
-								display: "flex",
-								flexDirection: "column",
-								alignItems: "center",
-								flexGrow: 1,
-							}}
+							component="form"
+							sx={{ width: "100%" }}
+							onSubmit={aoSubmeterForm}
 						>
-							<Box
-								component="form"
-								sx={{ width: "100%" }}
-								onSubmit={aoSubmeterForm}
+							<Typography component="h1" variant="h6">
+								Formulário de Restaurantes
+							</Typography>
+							<TextField
+								value={nomeRestaurante}
+								onChange={evento => setNomeRestaurante(evento.target.value)}
+								id="standard-basic"
+								label="Nome do Restaurante"
+								variant="standard"
+								fullWidth
+								required
+							/>
+							<Button
+								sx={{ marginTop: 1 }}
+								type="submit"
+								fullWidth
+								variant="outlined"
 							>
-								<Typography component="h1" variant="h6">
-									Formulário de Restaurantes
-								</Typography>
-								<TextField
-									value={nomeRestaurante}
-									onChange={evento => setNomeRestaurante(evento.target.value)}
-									id="standard-basic"
-									label="Nome do Restaurante"
-									variant="standard"
-									fullWidth
-									required
-								/>
-								<Button
-									sx={{ marginTop: 1 }}
-									type="submit"
-									fullWidth
-									variant="outlined"
-								>
-									Salvar
-								</Button>
-							</Box>
+								Salvar
+							</Button>
 						</Box>
-					</Paper>
-				</Container>
-			</Box>
-		</>
+					</Box>
+				</Paper>
+			</Container>
+		</Box>
 	);
 };
 
