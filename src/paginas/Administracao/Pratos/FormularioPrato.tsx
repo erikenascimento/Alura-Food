@@ -13,6 +13,7 @@ import {
 import React, { useEffect, useState } from "react";
 import axiosBaseURL from "../../../http";
 import ITag from "../../../interfaces/ITag";
+import IRestaurante from "../../../interfaces/IRestaurante";
 
 const FormularioPrato = () => {
 	const [nomePrato, setNomePrato] = useState("");
@@ -21,10 +22,16 @@ const FormularioPrato = () => {
 	const [tag, setTag] = useState("");
 	const [tags, setTags] = useState<ITag[]>([]);
 
+	const [restaurante, setRestaurante] = useState("");
+	const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([]);
+
 	useEffect(() => {
 		axiosBaseURL
 			.get<{ tags: ITag[] }>("tags/")
 			.then(resposta => setTags(resposta.data.tags));
+		axiosBaseURL
+			.get<IRestaurante[]>("restaurantes/")
+			.then(resposta => setRestaurantes(resposta.data));
 	}, []);
 
 	const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
@@ -83,6 +90,21 @@ const FormularioPrato = () => {
 									{tags.map(tag => (
 										<MenuItem key={tag.id} value={tag.id}>
 											{tag.value}
+										</MenuItem>
+									))}
+								</Select>
+							</FormControl>
+
+							<FormControl margin="dense" fullWidth>
+								<InputLabel id="select-restaurante">Restaurante</InputLabel>
+								<Select
+									labelId="select-restaurante"
+									value={restaurante}
+									onChange={evento => setRestaurante(evento.target.value)}
+								>
+									{restaurantes.map(restaurante => (
+										<MenuItem key={restaurante.id} value={restaurante.id}>
+											{restaurante.nome}
 										</MenuItem>
 									))}
 								</Select>
