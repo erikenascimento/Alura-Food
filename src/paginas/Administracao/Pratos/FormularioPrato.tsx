@@ -40,7 +40,7 @@ const FormularioPrato = () => {
 								value={nomePrato}
 								onChange={evento => setNomePrato(evento.target.value)}
 								id="standard-basic"
-								label="Nome do Restaurante"
+								label="Nome do Prato"
 								variant="standard"
 								fullWidth
 								required
