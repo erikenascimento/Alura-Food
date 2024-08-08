@@ -25,6 +25,8 @@ const FormularioPrato = () => {
 	const [restaurante, setRestaurante] = useState("");
 	const [restaurantes, setRestaurantes] = useState<IRestaurante[]>([]);
 
+	const [imagem, setImagem] = useState<File | null>(null);
+
 	useEffect(() => {
 		axiosBaseURL
 			.get<{ tags: ITag[] }>("tags/")
@@ -36,6 +38,14 @@ const FormularioPrato = () => {
 
 	const aoSubmeterForm = (evento: React.FormEvent<HTMLFormElement>) => {
 		evento.preventDefault();
+	};
+
+	const selecionarArquivo = (event: React.ChangeEvent<HTMLInputElement>) => {
+		if (event.target.files?.length) {
+			setImagem(event.target.files[0]);
+		} else {
+			setImagem(null);
+		}
 	};
 
 	return (
@@ -109,6 +119,8 @@ const FormularioPrato = () => {
 									))}
 								</Select>
 							</FormControl>
+
+							<input type="file" onChange={selecionarArquivo} />
 
 							<Button
 								sx={{ marginTop: 1 }}
